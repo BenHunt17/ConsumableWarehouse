@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36202.13 d17.14
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse", "ConsumableWarehouse.csproj", "{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.DataPersistence", "..\ConsumableWarehouse.DataPersistence\ConsumableWarehouse.DataPersistence.csproj", "{FB5EEC0E-EDEA-403E-A200-13BC953188DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Domain", "..\ConsumableWarehouse.Domain\ConsumableWarehouse.Domain.csproj", "{2B0711BD-B793-411D-B0CC-49C73CD66BA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Application", "..\ConsumableWarehouse.Application\ConsumableWarehouse.Application.csproj", "{13FF3560-7ED9-4515-9D35-3F7D25E33322}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0711BD-B793-411D-B0CC-49C73CD66BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0711BD-B793-411D-B0CC-49C73CD66BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0711BD-B793-411D-B0CC-49C73CD66BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0711BD-B793-411D-B0CC-49C73CD66BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13FF3560-7ED9-4515-9D35-3F7D25E33322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FF3560-7ED9-4515-9D35-3F7D25E33322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FF3560-7ED9-4515-9D35-3F7D25E33322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FF3560-7ED9-4515-9D35-3F7D25E33322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

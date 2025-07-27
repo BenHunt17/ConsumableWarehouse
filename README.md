@@ -52,3 +52,34 @@ Since the scope of the project is the whole backend system and an in-house web a
 	
 ## Optional extras
 - If I have time I can also integrate authentication and authorization into the endpoints so that users can only modify the state of their own wishlists.
+
+### Project architecture
+
+One of the first tradeoffs I had to make a decision for was whether to use the clean architecture with Entity framework Core.
+
+If strictly following the clean architecture, I would need to introduce a unit of work and repositories to completely decouple EF Core from the application. 
+However many argue that EF Core already acts a unit of work with a set of repositories. Adding repositories on top can slow development and creates more work down the road when a new use case needs to use an EF Core feature which isn't provided by the abstraction.
+Furthermore, EF Core is a mature framework directly maintained by Microsoft. It is unlikely to be going anywhere anytime soon.
+Some in favor of the strict clean architecture argue that if the database ever changes then the application code would also need to change. However this rarely ever happens in practice and even if it did, changing a database would likely introduce schema changes that will naturally disrupt the higher layers anyway.
+
+### Products
+
+It's important to model the products well because they are central to the business model of this company, therefore it's important to model them carefully so that more advanced use cases can be built on top of them in the future.
+
+A product can have two different "identties". Either the end user could add a free-text entry to their wishlist, or they can add an affiliate product.
+
+Because affiliate partnerships would be gradual and dynamic, it's important that the system is built with the possibility of transforming free-text products to affiliate products and visa-versa. 
+Whether this is done using NLP or some other process is a future use case, however the way a product is modelled should allow for a clean distinction between the two types of products.
+
+A free-text product should not be tightly coupled to any affiliate product because multiple users could've created slightly different entries for the same product and linking all of them is messy and will cause complications down the road.
+It's best to treat a free-text product as a disposable identity purely for a single user's wishlist. If it is later converted to an affiliate product, the free text data will be deleted.
+
+Therefore it seems best to model a wishlist item as a thin proxy table. This proxy then links to either an "AffiliateProduct" entity or a "FreeTextProduct" entity.
+
+The trade off here is that it could make querying more tricky as there's two different entities to consider, however if I were to unify them, then it'd blur the boundary too much for my liking.
+
+## Categories
+
+On the B2C website, users will be able to drill down for affiliate products similar to a catalogue i.e. Food -> Chocolate -> Flake. Therefore the category system is hierarchical and will be modelled as an entity 
+in the database which can reference other category entities. I did consider tags but that would be categorization with overlap which could be useful for other use cases but for now it's not needed. Because it's 
+for a catalogue, only affiliate products need a category. 

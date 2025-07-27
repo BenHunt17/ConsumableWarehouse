@@ -1,3 +1,5 @@
+//TODO - Try seperate blazor server and web api into projects so they dont depend on ef core etc.
+
 using ConsumableWarehouse.Components;
 
 var builder = WebApplication.CreateBuilder(args);
