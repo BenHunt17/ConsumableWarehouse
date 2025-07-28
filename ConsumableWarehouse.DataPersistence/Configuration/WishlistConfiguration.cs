@@ -8,6 +8,8 @@ namespace ConsumableWarehouse.DataPersistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Wishlist> builder)
         {
+            builder.HasIndex(x => new { x.UserProfileId, x.Name }).IsUnique();
+
             builder.Property(x => x.Name).HasMaxLength(99);
         }
     }

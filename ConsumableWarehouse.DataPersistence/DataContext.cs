@@ -23,6 +23,8 @@ namespace ConsumableWarehouse.DataPersistence
 
         public DbSet<Partner> Partners { get; set; }
 
+        public DbSet<UserProfile> UserProfiles { get; set; }
+
         public void Commit()
         {
             SaveChanges();
@@ -36,16 +38,12 @@ namespace ConsumableWarehouse.DataPersistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new WishlistConfiguration());
-
             modelBuilder.ApplyConfiguration(new WishlistProductConfiguration());
-
             modelBuilder.ApplyConfiguration(new FreeTextProductConfiguration());
-
             modelBuilder.ApplyConfiguration(new AffiliateProductConfiguration());
-
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
-
             modelBuilder.ApplyConfiguration(new PartnerConfiguration());
+            modelBuilder.ApplyConfiguration(new UserProfileConfiguration());
         }
     }
 }
