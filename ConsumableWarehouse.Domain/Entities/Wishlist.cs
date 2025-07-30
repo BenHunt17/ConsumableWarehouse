@@ -1,8 +1,12 @@
-﻿namespace ConsumableWarehouse.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ConsumableWarehouse.Domain.Entities
 {
     public class Wishlist
     {
         public int Id { get; set; }
+
+        public Guid ExternalId { get; set; }
 
         public string Name { get; set; }
 

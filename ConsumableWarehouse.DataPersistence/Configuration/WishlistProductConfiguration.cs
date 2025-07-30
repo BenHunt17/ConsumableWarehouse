@@ -8,6 +8,8 @@ namespace ConsumableWarehouse.DataPersistence.Configuration
     {
         public void Configure(EntityTypeBuilder<WishlistProduct> builder)
         {
+            builder.HasIndex(x => x.ExternalId).IsUnique();
+
             builder.Property(x => x.Comment).HasMaxLength(999);
         }
     }

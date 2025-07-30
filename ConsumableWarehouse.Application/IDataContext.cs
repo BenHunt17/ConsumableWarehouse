@@ -7,11 +7,13 @@ namespace ConsumableWarehouse.Application
     {
         public DbSet<Wishlist> Wishlists { get; }
 
-        public DbSet<AffiliateProduct> AffiliateProducts { get; }
+        public DbSet<AffiliateProduct> AffiliateProducts { get; set; }
 
-        public DbSet<ProductCategory> ProductCategories { get; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
 
-        public DbSet<Partner> Partners { get; }
+        public DbSet<Partner> Partners { get; set; }
+
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         public void Commit();
     }

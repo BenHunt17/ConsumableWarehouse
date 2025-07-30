@@ -10,6 +10,8 @@ namespace ConsumableWarehouse.DataPersistence.Configuration
         {
             builder.HasIndex(x => x.Name).IsUnique();
 
+            builder.HasIndex(x => x.ExternalId).IsUnique();
+
             builder.Property(x => x.Name).HasMaxLength(99);
 
             builder.Property(x => x.AffiliateLink).HasMaxLength(999);

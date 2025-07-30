@@ -83,3 +83,8 @@ The trade off here is that it could make querying more tricky as there's two dif
 On the B2C website, users will be able to drill down for affiliate products similar to a catalogue i.e. Food -> Chocolate -> Flake. Therefore the category system is hierarchical and will be modelled as an entity 
 in the database which can reference other category entities. I did consider tags but that would be categorization with overlap which could be useful for other use cases but for now it's not needed. Because it's 
 for a catalogue, only affiliate products need a category. 
+
+## External Ids
+
+I use Auto-incrementing integer Ids for efficient indexing and querying. However, because I am designing a public API, I can't expose these Ids because they are easily guessable and would be a security vulnerability.
+For now I have designed on a hybrid approach, whenever I require opaque unqiue identifiers for entities in the public API, I have added a decond Guid Id called `ExternalId` which is used sorely for external identification.
