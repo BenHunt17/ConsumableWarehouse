@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ConsumableWarehouse.Domain.Validators.Wishlist
 {
-    public class WishlistSummaryInputValidator : AbstractValidator<WishListSummaryInput>
+    public class WishlistSummaryInputValidator : AbstractValidator<WishlistSummaryInput>
     {
         public WishlistSummaryInputValidator()
         {

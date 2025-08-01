@@ -11,7 +11,7 @@ namespace ConsumableWarehouse.Domain.Mappers
         {
             var wishlistProduct = new WishlistProduct
             {
-                ExternalId = new Guid(),
+                ExternalId = Guid.NewGuid(),
                 Comment = input.Comment,
                 Priority = input.Priority,
             };
@@ -20,7 +20,7 @@ namespace ConsumableWarehouse.Domain.Mappers
             {
                 wishlistProduct.AffiliateProduct = affiliateProduct;
             }
-            else if (wishlistProduct.FreeTextProduct != null)
+            else if (input.FreeTextProduct != null)
             {
                 wishlistProduct.FreeTextProduct = new FreeTextProduct
                 {

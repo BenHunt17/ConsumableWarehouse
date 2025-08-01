@@ -5,13 +5,13 @@ namespace ConsumableWarehouse.Domain.Interfaces.Services
 {
     public interface IWishlistService
     {
-        WishlistResponse GetUserWishlist(Guid externalId);
+        WishlistResponse GetWishlist(Guid externalId);
 
-        IEnumerable<WishlistSummaryResponse> GetWishlists();
+        IEnumerable<WishlistSummaryResponse> GetCurrentUserWishlists();
 
         WishlistResponse CreateWishlist(WishlistInput input);
 
-        WishlistResponse UpdateWishlist(Guid externalId, WishListSummaryInput input);
+        WishlistResponse UpdateWishlist(Guid externalId, WishlistSummaryInput input);
 
         WishlistResponse AddProduct(Guid externalId, WishlistProductInput input);
 

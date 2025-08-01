@@ -1,6 +1,8 @@
-﻿namespace ConsumableWarehouse.Application.Authentication
+﻿using ConsumableWarehouse.Domain.Interfaces;
+
+namespace ConsumableWarehouse.Application.Authentication
 {
-    public class UserContext
+    public class UserContext : IUserContext
     {
         //For now I am simply mocking the UserProfileId so I can integrate it with the features I am implementing.
         //When authentication is implemented, this would be changed to dynamically set the Id of whoever is authenticated.

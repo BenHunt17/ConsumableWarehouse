@@ -21,14 +21,14 @@ namespace ConsumableWarehouse.Application.Services
             _userContext = userContext;
         }
 
-        public WishlistResponse GetUserWishlist(Guid externalId)
+        public WishlistResponse GetWishlist(Guid externalId)
         {
             var wishlist = TryGetUserWishlist(externalId);
 
             return wishlist.ToResponse();
         }
 
-        public IEnumerable<WishlistSummaryResponse> GetWishlists()
+        public IEnumerable<WishlistSummaryResponse> GetCurrentUserWishlists()
         {
             var wishlists = _dataContext.Wishlists
                 .Where(x => x.UserProfileId == _userContext.UserProfileId)
@@ -50,7 +50,7 @@ namespace ConsumableWarehouse.Application.Services
                 .Where(x => affiliateProductExternalIds.Contains(x.ExternalId))
                 .ToDictionary(x => x.ExternalId, x => x);
 
-            var wishlist = input.ToDomainObject(affiliateProducts);
+            var wishlist = input.ToDomainObject(_userContext.UserProfileId, affiliateProducts);
 
             _dataContext.Wishlists.Add(wishlist);
 
@@ -59,7 +59,7 @@ namespace ConsumableWarehouse.Application.Services
             return wishlist.ToResponse();
         }
 
-        public WishlistResponse UpdateWishlist(Guid externalId, WishListSummaryInput input)
+        public WishlistResponse UpdateWishlist(Guid externalId, WishlistSummaryInput input)
         {
             new WishlistSummaryInputValidator().ValidateAndThrow(input);
 
@@ -72,6 +72,7 @@ namespace ConsumableWarehouse.Application.Services
 
             wishlist.Name = input.Name;
             wishlist.IsPrivate = input.IsPrivate;
+            wishlist.LastUpdatedAt = DateTime.UtcNow;
 
             _dataContext.Commit();
 
@@ -94,6 +95,8 @@ namespace ConsumableWarehouse.Application.Services
 
             wishlist.Products.Add(
                 input.ToDomainObject(affiliateProduct));
+
+            wishlist.LastUpdatedAt = DateTime.UtcNow;
 
             _dataContext.Commit();
 
@@ -118,6 +121,8 @@ namespace ConsumableWarehouse.Application.Services
             }
 
             wishlist.Products.Remove(wishlistProduct);
+            
+            wishlist.LastUpdatedAt = DateTime.UtcNow;
 
             _dataContext.Commit();
 
@@ -145,7 +150,8 @@ namespace ConsumableWarehouse.Application.Services
                     .ThenInclude(x => x.AffiliateProduct)
                 .Include(x => x.Products)
                     .ThenInclude(x => x.FreeTextProduct)
-                .FirstOrDefault(x => x.ExternalId == externalId && IsAccessible(x));
+                .FirstOrDefault(x => x.ExternalId == externalId
+                    && (!x.IsPrivate || x.UserProfileId == _userContext.UserProfileId));
 
             if (wishlist == null)
             {
@@ -153,11 +159,6 @@ namespace ConsumableWarehouse.Application.Services
             }
 
             return wishlist;
-        }
-
-        private bool IsAccessible(Wishlist wishlist)
-        {
-            return !wishlist.IsPrivate || wishlist.UserProfileId == _userContext.UserProfileId;
         }
     }
 }

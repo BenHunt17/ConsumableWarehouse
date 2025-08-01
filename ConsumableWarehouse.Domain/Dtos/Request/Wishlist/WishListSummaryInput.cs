@@ -1,6 +1,6 @@
 ﻿namespace ConsumableWarehouse.Domain.Dtos.Request.Wishlist
 {
-    public class WishListSummaryInput
+    public class WishlistSummaryInput
     {
         public string Name { get; set; }
 

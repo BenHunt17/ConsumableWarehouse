@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -11,10 +11,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Scalar.AspNetCore" Version="2.6.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConsumableWarehouse.Application\ConsumableWarehouse.Application.csproj" />
     <ProjectReference Include="..\ConsumableWarehouse.DataPersistence\ConsumableWarehouse.DataPersistence.csproj" />
+    <ProjectReference Include="..\ConsumableWarehouse.Domain\ConsumableWarehouse.Domain.csproj" />
+    <ProjectReference Include="..\ConsumableWarehouse.RestApi\ConsumableWarehouse.RestApi.csproj" />
+    <ProjectReference Include="..\ConsumableWarehouse.WebPortal\ConsumableWarehouse.WebPortal.csproj" />
   </ItemGroup>
 
 </Project>

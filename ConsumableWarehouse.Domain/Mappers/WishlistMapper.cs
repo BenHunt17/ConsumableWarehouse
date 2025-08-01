@@ -6,13 +6,17 @@ namespace ConsumableWarehouse.Domain.Mappers
 {
     public static class WishlistMapper
     {
-        public static Wishlist ToDomainObject(this WishlistInput input, IDictionary<Guid, AffiliateProduct>? affiliateProducts = null)
+        public static Wishlist ToDomainObject(this WishlistInput input, int userProfileId, IDictionary<Guid, AffiliateProduct>? affiliateProducts = null)
         {
             var wishlist = new Wishlist
             {
-                ExternalId = new Guid(),
+                ExternalId = Guid.NewGuid(),
                 Name = input.Name,
                 IsPrivate = input.IsPrivate,
+                Products = new List<WishlistProduct>(),
+                UserProfileId = userProfileId,
+                CreatedAt = DateTime.UtcNow,
+                LastUpdatedAt = DateTime.UtcNow,
             };
 
             foreach (var product in input.Products)
@@ -39,6 +43,7 @@ namespace ConsumableWarehouse.Domain.Mappers
         {
             return new WishlistResponse
             {
+                ExternalId = wishlist.ExternalId,
                 Name = wishlist.Name,
                 Products = wishlist.Products.Select(x => x.ToResponse())
             };
@@ -48,6 +53,7 @@ namespace ConsumableWarehouse.Domain.Mappers
         {
             return new WishlistSummaryResponse
             {
+                ExternalId = wishlist.ExternalId,
                 Name = wishlist.Name,
             };
         }
