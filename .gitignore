@@ -416,4 +416,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-/ConsumableWarehouse/appsettings.Development.json
+ConsumableWarehouse.RestApi/appsettings.Development.json

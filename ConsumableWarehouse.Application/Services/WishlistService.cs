@@ -113,7 +113,7 @@ namespace ConsumableWarehouse.Application.Services
             }
 
             var wishlistProduct = wishlist.Products
-                .FirstOrDefault(x => x.ExternalId == externalId);
+                .FirstOrDefault(x => x.ExternalId == externalWishlistProductId);
 
             if (wishlistProduct == null)
             {

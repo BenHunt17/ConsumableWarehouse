@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse", "ConsumableWarehouse.csproj", "{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.DataPersistence", "ConsumableWarehouse.DataPersistence\ConsumableWarehouse.DataPersistence.csproj", "{FB5EEC0E-EDEA-403E-A200-13BC953188DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.DataPersistence", "..\ConsumableWarehouse.DataPersistence\ConsumableWarehouse.DataPersistence.csproj", "{FB5EEC0E-EDEA-403E-A200-13BC953188DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Domain", "ConsumableWarehouse.Domain\ConsumableWarehouse.Domain.csproj", "{2B0711BD-B793-411D-B0CC-49C73CD66BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Domain", "..\ConsumableWarehouse.Domain\ConsumableWarehouse.Domain.csproj", "{2B0711BD-B793-411D-B0CC-49C73CD66BA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Application", "ConsumableWarehouse.Application\ConsumableWarehouse.Application.csproj", "{2D20FED4-73D0-49F8-86D5-9DCC40934C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Application", "..\ConsumableWarehouse.Application\ConsumableWarehouse.Application.csproj", "{2D20FED4-73D0-49F8-86D5-9DCC40934C86}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.RestApi", "..\ConsumableWarehouse.RestApi\ConsumableWarehouse.RestApi.csproj", "{461B2CCA-C213-4920-9323-8FF6B79E0A6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.RestApi", "ConsumableWarehouse.RestApi\ConsumableWarehouse.RestApi.csproj", "{46D22C57-FADB-4160-AA97-0E354D52F8EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7669ADF1-14E6-4A86-B38E-DB6195C3BBE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB5EEC0E-EDEA-403E-A200-13BC953188DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,10 +29,10 @@ Global
 		{2D20FED4-73D0-49F8-86D5-9DCC40934C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D20FED4-73D0-49F8-86D5-9DCC40934C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D20FED4-73D0-49F8-86D5-9DCC40934C86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{461B2CCA-C213-4920-9323-8FF6B79E0A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{461B2CCA-C213-4920-9323-8FF6B79E0A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{461B2CCA-C213-4920-9323-8FF6B79E0A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{461B2CCA-C213-4920-9323-8FF6B79E0A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
