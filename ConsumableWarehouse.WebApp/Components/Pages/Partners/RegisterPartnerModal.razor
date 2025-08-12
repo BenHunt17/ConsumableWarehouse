@@ -1,0 +1,52 @@
+﻿@using ConsumableWarehouse.Domain.Dtos.Form
+@using ConsumableWarehouse.Domain.Entities
+@using ConsumableWarehouse.Domain.Interfaces.Services
+@using Blazored.Modal;
+@using Blazored.Modal.Services
+
+@inject IPartnerService PartnerService
+
+<EditForm FormName="RegisterPartnerForm" Model="partnerToRegister" OnValidSubmit="RegisterPartner">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="vstack gap-4">
+        <div class="row">
+            <label>
+                Company name*
+            </label>
+            <InputText id="company-name" @bind-Value="partnerToRegister.CompanyName" />
+        </div>
+        <div class="row">
+            <label>
+                Contact email address*
+            </label>
+            <InputText id="contact-email-address" @bind-Value="partnerToRegister.ContactEmailAddress" />
+        </div>
+        <div class="row">
+            <label>
+                Contact phone number*
+            </label>
+            <InputText id="contact-phone-number" @bind-Value="partnerToRegister.ContactPhoneNumber" />
+        </div>
+    </div>
+    <button class="btn btn-primary">Register</button>
+</EditForm>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance Modal { get; set; } = default!;
+
+    private RegisterPartnerInput partnerToRegister { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        partnerToRegister ??= new RegisterPartnerInput();
+    }
+
+    private async Task RegisterPartner()
+    {
+        var partner = PartnerService.RegisterPartner(partnerToRegister);
+
+        await Modal.CloseAsync(ModalResult.Ok(partner));
+    }
+}

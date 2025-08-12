@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.RestApi", "ConsumableWarehouse.RestApi\ConsumableWarehouse.RestApi.csproj", "{46D22C57-FADB-4160-AA97-0E354D52F8EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumableWarehouse.WebApp", "ConsumableWarehouse.WebApp\ConsumableWarehouse.WebApp.csproj", "{58B007F4-737E-46CF-A9DE-0A9F9943787F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46D22C57-FADB-4160-AA97-0E354D52F8EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B007F4-737E-46CF-A9DE-0A9F9943787F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B007F4-737E-46CF-A9DE-0A9F9943787F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B007F4-737E-46CF-A9DE-0A9F9943787F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B007F4-737E-46CF-A9DE-0A9F9943787F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
