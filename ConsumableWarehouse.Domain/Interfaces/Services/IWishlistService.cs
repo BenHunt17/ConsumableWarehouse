@@ -1,21 +1,21 @@
 ﻿using ConsumableWarehouse.Domain.Dtos.Request.Wishlist;
-using ConsumableWarehouse.Domain.Dtos.Response.Wishlist;
+using ConsumableWarehouse.Domain.Entities;
 
 namespace ConsumableWarehouse.Domain.Interfaces.Services
 {
     public interface IWishlistService
     {
-        WishlistResponse GetWishlist(Guid externalId);
+        Wishlist GetWishlist(Guid externalId);
 
-        IEnumerable<WishlistSummaryResponse> GetCurrentUserWishlists();
+        IEnumerable<Wishlist> GetCurrentUserWishlists();
 
-        WishlistResponse CreateWishlist(WishlistInput input);
+        Wishlist CreateWishlist(WishlistInput input);
 
-        WishlistResponse UpdateWishlist(Guid externalId, WishlistSummaryInput input);
+        Wishlist UpdateWishlist(Guid externalId, WishlistSummaryInput input);
 
-        WishlistResponse AddProduct(Guid externalId, WishlistProductInput input);
+        Wishlist AddProduct(Guid externalId, WishlistProductInput input);
 
-        WishlistResponse RemoveProduct(Guid externalId, Guid externalWishlistProductId);
+        Wishlist RemoveProduct(Guid externalId, Guid externalWishlistProductId);
 
         void DeleteWishlist(Guid externalId);
     }

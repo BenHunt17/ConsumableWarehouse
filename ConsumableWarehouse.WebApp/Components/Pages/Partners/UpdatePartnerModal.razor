@@ -1,0 +1,52 @@
+﻿@using ConsumableWarehouse.Domain.Dtos.Form.PartnerInputs
+@using ConsumableWarehouse.Domain.Entities
+@using ConsumableWarehouse.Domain.Interfaces.Services
+
+@inject IPartnerService PartnerService
+
+<EditForm FormName="UpdatePartnerForm" Model="updatePartnerInput" OnValidSubmit="UpdatePartner">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="vstack gap-4">
+        <div class="row">
+            <label>
+                Trading name
+            </label>
+            <InputText id="trading-name" @bind-Value="updatePartnerInput.TradingName" />
+        </div>
+        <div class="row">
+            <label>
+                Contact email address*
+            </label>
+            <InputText id="contact-email-address" @bind-Value="updatePartnerInput.ContactEmailAddress" />
+        </div>
+        <div class="row">
+            <label>
+                Contact phone number*
+            </label>
+            <InputText id="contact-phone-number" @bind-Value="updatePartnerInput.ContactPhoneNumber" />
+        </div>
+    </div>
+    <button class="btn btn-primary">Update</button>
+</EditForm>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance Modal { get; set; } = default!;
+
+    [Parameter] public Partner partner { get; set; }
+
+    private UpdatePartnerInput updatePartnerInput { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        updatePartnerInput ??= new UpdatePartnerInput(partner);
+    }
+
+    private async Task UpdatePartner()
+    {
+        var updatedPartner = PartnerService.UpdatePartner(partner.Id, updatePartnerInput);
+
+        await Modal.CloseAsync(ModalResult.Ok(updatedPartner));
+    }
+}

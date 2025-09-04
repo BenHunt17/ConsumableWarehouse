@@ -1,4 +1,4 @@
-﻿using ConsumableWarehouse.Domain.Dtos.Form;
+﻿using ConsumableWarehouse.Domain.Dtos.Form.PartnerInputs;
 using ConsumableWarehouse.Domain.Entities;
 
 namespace ConsumableWarehouse.Domain.Mappers
@@ -10,6 +10,8 @@ namespace ConsumableWarehouse.Domain.Mappers
             return new Partner
             {
                 CompanyName = input.CompanyName,
+                TradingName = input.TradingName,
+                VatNumber = input.VatNumber,
                 ContactEmailAddress = input.ContactEmailAddress,
                 ContactPhoneNumber = input.ContactPhoneNumber,
                 AffiliateProducts = Array.Empty<AffiliateProduct>(),

@@ -21,25 +21,19 @@ namespace ConsumableWarehouse.Application.Services
             _userContext = userContext;
         }
 
-        public WishlistResponse GetWishlist(Guid externalId)
+        public Wishlist GetWishlist(Guid externalId)
         {
-            var wishlist = TryGetUserWishlist(externalId);
-
-            return wishlist.ToResponse();
+            return TryGetUserWishlist(externalId);
         }
 
-        public IEnumerable<WishlistSummaryResponse> GetCurrentUserWishlists()
+        public IEnumerable<Wishlist> GetCurrentUserWishlists()
         {
-            var wishlists = _dataContext.Wishlists
+            return _dataContext.Wishlists
                 .Where(x => x.UserProfileId == _userContext.UserProfileId)
                 .ToList();
-
-            return wishlists
-                .Select(x => x.ToSummaryResponse())
-                .ToList();
         }
 
-        public WishlistResponse CreateWishlist(WishlistInput input)
+        public Wishlist CreateWishlist(WishlistInput input)
         {
             new WishlistInputValidator().ValidateAndThrow(input);
 
@@ -56,10 +50,10 @@ namespace ConsumableWarehouse.Application.Services
 
             _dataContext.Commit();
 
-            return wishlist.ToResponse();
+            return wishlist;
         }
 
-        public WishlistResponse UpdateWishlist(Guid externalId, WishlistSummaryInput input)
+        public Wishlist UpdateWishlist(Guid externalId, WishlistSummaryInput input)
         {
             new WishlistSummaryInputValidator().ValidateAndThrow(input);
 
@@ -76,10 +70,10 @@ namespace ConsumableWarehouse.Application.Services
 
             _dataContext.Commit();
 
-            return wishlist.ToResponse();
+            return wishlist;
         }
 
-        public WishlistResponse AddProduct(Guid externalId, WishlistProductInput input)
+        public Wishlist AddProduct(Guid externalId, WishlistProductInput input)
         {
             new WishlistProductInputValidator().ValidateAndThrow(input);
 
@@ -100,10 +94,10 @@ namespace ConsumableWarehouse.Application.Services
 
             _dataContext.Commit();
 
-            return wishlist.ToResponse();
+            return wishlist;
         }
 
-        public WishlistResponse RemoveProduct(Guid externalId, Guid externalWishlistProductId)
+        public Wishlist RemoveProduct(Guid externalId, Guid externalWishlistProductId)
         {
             var wishlist = TryGetUserWishlist(externalId);
 
@@ -126,7 +120,7 @@ namespace ConsumableWarehouse.Application.Services
 
             _dataContext.Commit();
 
-            return wishlist.ToResponse();
+            return wishlist;
         }
 
         public void DeleteWishlist(Guid externalId)

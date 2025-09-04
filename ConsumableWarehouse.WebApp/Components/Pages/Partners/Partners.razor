@@ -7,7 +7,7 @@
 
 @inject IPartnerService PartnerService
 
-<PageTitle>Error</PageTitle>
+<PageTitle>Partners</PageTitle>
 
 <div class="hstack justify-content-between">
     <h3>Partners</h3>
@@ -21,7 +21,7 @@
 }
 else
 {
-    <PartnersTable partners="@partners" OnPartnerDeleted="@OnPartnerDeleted" />
+    <PartnersTable partners="@partners" OnPartnerUpdated="@OnPartnerUpdated" OnPartnerDeleted="@OnPartnerDeleted" />
 }
 
 @code {
@@ -48,6 +48,13 @@ else
         {
             partners.Add((Partner)result.Data);
         }
+    }
+
+    private async Task OnPartnerUpdated(Partner partner)
+    {
+        var partnerToUpdate = partners.FirstOrDefault(x => x.Id == partner.Id);
+
+        partnerToUpdate = partner;
     }
 
     private async Task OnPartnerDeleted(Partner partner)

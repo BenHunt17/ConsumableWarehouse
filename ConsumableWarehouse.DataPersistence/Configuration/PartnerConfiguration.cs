@@ -12,6 +12,10 @@ namespace ConsumableWarehouse.DataPersistence.Configuration
 
             builder.Property(x => x.CompanyName).HasMaxLength(99);
 
+            builder.Property(x => x.TradingName).HasMaxLength(99);
+
+            builder.Property(x => x.VatNumber).HasMaxLength(20);
+
             builder.Property(x => x.ContactEmailAddress).HasMaxLength(99);
 
             builder.Property(x => x.ContactPhoneNumber).HasMaxLength(20);

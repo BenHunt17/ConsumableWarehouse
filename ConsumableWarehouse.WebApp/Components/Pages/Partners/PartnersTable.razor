@@ -4,6 +4,7 @@
     <thead>
         <tr>
             <th>Company name</th>
+            <th>Trading name</th>
             <th>Contact email address</th>
             <th>Contact phone number</th>
             <th># Affiliate products</th>
@@ -14,12 +15,18 @@
         {
             <tr @key="partner.Id">
                 <td>@partner.CompanyName</td>
+                <td>@partner.TradingName</td>
                 <td>@partner.ContactEmailAddress</td>
                 <td>@partner.ContactPhoneNumber</td>
                 <td>@partner.AffiliateProducts.Count</td>
-                <button type="button" @onclick="() => OpenDeleteModal(partner)" class="btn btn-sm">
-                    <i class="bi bi-trash"></i>
-                </button>
+                <div class="d-flex flex-row align-items-center gap-2">
+                    <button type="button" @onclick="() => OpenUpdateModal(partner)" class="btn btn-sm">
+                        <i class="bi bi-pen" />
+                    </button>
+                    <button type="button" @onclick="() => OpenDeleteModal(partner)" class="btn btn-sm">
+                        <i class="bi bi-trash" />
+                    </button>
+                </div>
             </tr>
         }
     </tbody>
@@ -31,6 +38,28 @@
     [Parameter] public IEnumerable<Partner> partners { get; set; }
 
     [Parameter] public EventCallback<Partner> OnPartnerDeleted { get; set; }
+
+    [Parameter] public EventCallback<Partner> OnPartnerUpdated { get; set; }
+
+    private async Task OpenUpdateModal(Partner partner)
+    {
+        var modal = Modal.Show<UpdatePartnerModal>("Update partner",
+            new ModalParameters
+            {
+                { "Partner", partner }
+            },
+            new ModalOptions
+            {
+                Position = ModalPosition.Middle,
+            });
+
+        var result = await modal.Result;
+
+        if (!result.Cancelled && result.Data is bool success && success)
+        {
+            await OnPartnerUpdated.InvokeAsync(partner);
+        }
+    }
 
     private async Task OpenDeleteModal(Partner partner)
     {

@@ -1,8 +1,9 @@
-﻿using ConsumableWarehouse.Domain.Dtos.Form;
+﻿using ConsumableWarehouse.Domain.Dtos.Form.PartnerInputs;
 using ConsumableWarehouse.Domain.Entities;
-using ConsumableWarehouse.Domain.Interfaces;
 using ConsumableWarehouse.Domain.Interfaces.Services;
 using ConsumableWarehouse.Domain.Mappers;
+using ConsumableWarehouse.Domain.Validators.Partner;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsumableWarehouse.Application.Services
@@ -16,6 +17,11 @@ namespace ConsumableWarehouse.Application.Services
             _dataContext = dataContext;
         }
 
+        public Partner GetPartner(int id)
+        {
+            return TryGetPartnerById(id);
+        }
+
         public IEnumerable<Partner> FindAllPartners()
         {
             var partners = _dataContext.Partners
@@ -26,6 +32,8 @@ namespace ConsumableWarehouse.Application.Services
 
         public Partner RegisterPartner(RegisterPartnerInput input)
         {
+            new RegisterPartnerInputValidator().ValidateAndThrow(input);
+
             var partner = input.ToDomainObject();
 
             _dataContext.Partners.Add(partner);
@@ -35,7 +43,31 @@ namespace ConsumableWarehouse.Application.Services
             return partner;
         }
 
+        public Partner UpdatePartner(int id, UpdatePartnerInput input)
+        {
+            new UpdatePartnerInputValidator().ValidateAndThrow(input);
+
+            var partner = TryGetPartnerById(id);
+
+            partner.TradingName = input.TradingName;
+            partner.ContactEmailAddress = input.ContactEmailAddress;
+            partner.ContactPhoneNumber = input.ContactPhoneNumber;
+
+            _dataContext.Commit();
+
+            return partner;
+        }
+
         public void DeletePartner(int id)
+        {
+            var partner = TryGetPartnerById(id);
+
+            _dataContext.Partners.Remove(partner);
+
+            _dataContext.Commit();
+        }
+
+        private Partner TryGetPartnerById(int id)
         {
             var partner = _dataContext.Partners
                 .FirstOrDefault(x => x.Id == id);
@@ -44,10 +76,8 @@ namespace ConsumableWarehouse.Application.Services
             {
                 throw new KeyNotFoundException($"Partner with Id {id} not found");
             }
-
-            _dataContext.Partners.Remove(partner);
-
-            _dataContext.Commit();
+        
+            return partner;
         }
     }
 }

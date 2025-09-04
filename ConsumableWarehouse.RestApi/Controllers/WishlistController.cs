@@ -1,6 +1,7 @@
 using ConsumableWarehouse.Domain.Dtos.Request.Wishlist;
 using ConsumableWarehouse.Domain.Dtos.Response.Wishlist;
 using ConsumableWarehouse.Domain.Interfaces.Services;
+using ConsumableWarehouse.Domain.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -25,7 +26,7 @@ namespace ConsumableWarehouse.RestApi.Controllers
         public IActionResult Get(Guid externalId)
         {
             var wishlist = _wishlistService.GetWishlist(externalId);
-            return Ok(wishlist);
+            return Ok(wishlist.ToResponse());
         }
 
         /// <summary>
@@ -36,7 +37,12 @@ namespace ConsumableWarehouse.RestApi.Controllers
         public IActionResult GetCurrentUserWishlists()
         {
             var wishlists = _wishlistService.GetCurrentUserWishlists();
-            return Ok(wishlists);
+
+            var wishlistsReponse = wishlists
+                .Select(x => x.ToSummaryResponse())
+                .ToList();
+
+            return Ok(wishlistsReponse);
         }
 
         /// <summary>
@@ -47,7 +53,7 @@ namespace ConsumableWarehouse.RestApi.Controllers
         public IActionResult CreateWishlist([FromBody] WishlistInput input)
         {
             var wishlist = _wishlistService.CreateWishlist(input);
-            return Created(wishlist.ExternalId.ToString(), wishlist);
+            return Created(wishlist.ExternalId.ToString(), wishlist.ToResponse());
         }
 
         /// <summary>
@@ -58,7 +64,7 @@ namespace ConsumableWarehouse.RestApi.Controllers
         public IActionResult UpdateWishlist(Guid externalId, [FromBody] WishlistSummaryInput input)
         {
             var wishlist = _wishlistService.UpdateWishlist(externalId, input);
-            return Ok(wishlist);
+            return Ok(wishlist.ToResponse());
         }
 
         /// <summary>
@@ -70,7 +76,7 @@ namespace ConsumableWarehouse.RestApi.Controllers
         public IActionResult AddProduct(Guid externalId, [FromBody] WishlistProductInput input)
         {
             var wishlist = _wishlistService.AddProduct(externalId, input);
-            return Ok(wishlist);
+            return Ok(wishlist.ToResponse());
         }
 
         /// <summary>
@@ -81,7 +87,7 @@ namespace ConsumableWarehouse.RestApi.Controllers
         public IActionResult RemoveProduct(Guid externalId, [FromBody] Guid productExternalId)
         {
             var wishlist = _wishlistService.RemoveProduct(externalId, productExternalId);
-            return Ok(wishlist);
+            return Ok(wishlist.ToResponse());
         }
 
         /// <summary>

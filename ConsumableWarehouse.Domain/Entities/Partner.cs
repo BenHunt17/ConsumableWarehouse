@@ -6,6 +6,10 @@
 
         public string CompanyName { get; set; }
 
+        public string? TradingName { get; set; }
+
+        public string? VatNumber { get; set; }
+
         public string ContactEmailAddress { get; set; }
 
         public string ContactPhoneNumber { get; set; }

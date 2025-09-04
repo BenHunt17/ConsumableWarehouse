@@ -1,8 +1,9 @@
-﻿@using ConsumableWarehouse.Domain.Dtos.Form
+﻿@using Blazored.Modal;
+@using Blazored.Modal.Services
+@using ConsumableWarehouse.Domain.Dtos.Form
+@using ConsumableWarehouse.Domain.Dtos.Form.PartnerInputs
 @using ConsumableWarehouse.Domain.Entities
 @using ConsumableWarehouse.Domain.Interfaces.Services
-@using Blazored.Modal;
-@using Blazored.Modal.Services
 
 @inject IPartnerService PartnerService
 
@@ -16,6 +17,18 @@
                 Company name*
             </label>
             <InputText id="company-name" @bind-Value="partnerToRegister.CompanyName" />
+        </div>
+        <div class="row">
+            <label>
+                Trading name
+            </label>
+            <InputText id="trading-name" @bind-Value="partnerToRegister.TradingName" />
+        </div>
+        <div class="row">
+            <label>
+                VAT number*
+            </label>
+            <InputText id="vat-number" @bind-Value="partnerToRegister.VatNumber" />
         </div>
         <div class="row">
             <label>
