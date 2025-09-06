@@ -13,6 +13,7 @@ builder.Services.AddScoped<IUserContext, UserContext>();
 builder.Services.AddScoped<IDataContext, DataContext>();
 
 builder.Services.AddScoped<IWishlistService, WishlistService>();
+builder.Services.AddScoped<IAffiliateProductService, AffiliateProductService>();
 
 builder.Services.AddControllers();
 
