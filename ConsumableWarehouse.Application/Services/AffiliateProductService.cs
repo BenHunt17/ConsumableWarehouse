@@ -1,11 +1,10 @@
 ﻿using ConsumableWarehouse.Domain.Dtos.Request.AffiliateProduct;
-using ConsumableWarehouse.Domain.Dtos.Response.AffiliateProduct;
+using ConsumableWarehouse.Domain.Entities;
 using ConsumableWarehouse.Domain.Interfaces.Services;
 using ConsumableWarehouse.Domain.Mappers;
 using ConsumableWarehouse.Domain.Validators.AffiliateProduct;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ConsumableWarehouse.Application.Services
 {
@@ -41,7 +40,7 @@ namespace ConsumableWarehouse.Application.Services
             _dataContext.Commit();
         }
 
-        public IEnumerable<AffiliateProductSummaryResponse> Search(AffiliateProductSearchInput input)
+        public IEnumerable<AffiliateProduct> Search(AffiliateProductSearchInput input)
         {
             var limit = input.Limit ?? 10;
             if (limit > 99)
@@ -73,7 +72,7 @@ namespace ConsumableWarehouse.Application.Services
                 .Take(limit)
                 .ToList();
 
-            return products.Select(x => x.ToSummaryResponse());
+            return products;
         }
     }
 }

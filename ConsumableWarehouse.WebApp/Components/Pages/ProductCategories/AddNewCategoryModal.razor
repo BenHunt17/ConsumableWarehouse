@@ -1,0 +1,44 @@
+﻿@using Blazored.Modal;
+@using Blazored.Modal.Services
+@using ConsumableWarehouse.Domain.Dtos.Form
+@using ConsumableWarehouse.Domain.Dtos.Form.PartnerInputs
+@using ConsumableWarehouse.Domain.Entities
+@using ConsumableWarehouse.Domain.Interfaces.Services
+
+@inject IProductCategoryService ProductCategoryService
+
+<EditForm FormName="AddNewCategoryForm" Model="categoryToAdd" OnValidSubmit="AddCategory">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="row">
+        <label>
+            Name*
+        </label>
+        <InputText id="company-name" @bind-Value="categoryToAdd.Name" />
+    </div>
+    <button class="btn btn-primary">Add</button>
+</EditForm>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance Modal { get; set; } = default!;
+
+    [Parameter] public int? ParentCategoryId { get; set; }
+
+    private ProductCategoryInput categoryToAdd { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        categoryToAdd ??= new ProductCategoryInput
+            {
+                ParentCategoryId = ParentCategoryId
+            };
+    }
+
+    private async Task AddCategory()
+    {
+        var category = ProductCategoryService.AddCategory(categoryToAdd);
+
+        await Modal.CloseAsync(ModalResult.Ok(category));
+    }
+}

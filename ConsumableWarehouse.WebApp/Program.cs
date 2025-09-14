@@ -14,6 +14,7 @@ builder.Services.AddScoped<IUserContext, UserContext>();
 builder.Services.AddScoped<IDataContext, DataContext>();
 
 builder.Services.AddScoped<IPartnerService, PartnerService>();
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 
 builder.Services.AddBlazoredModal();
 

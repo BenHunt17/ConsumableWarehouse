@@ -1,6 +1,7 @@
 ﻿using ConsumableWarehouse.Domain.Dtos.Request.AffiliateProduct;
 using ConsumableWarehouse.Domain.Dtos.Response.AffiliateProduct;
 using ConsumableWarehouse.Domain.Interfaces.Services;
+using ConsumableWarehouse.Domain.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -24,7 +25,8 @@ namespace ConsumableWarehouse.RestApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<AffiliateProductSummaryResponse>), (int)HttpStatusCode.OK)]
         public IActionResult Search(int partnerId, [FromBody] AffiliateProductSearchInput input)
         {
-            var products = _affiliateProductService.Search(input);
+            var products = _affiliateProductService.Search(input)
+                .Select(x => x.ToSummaryResponse());
             return Ok(products);
         }
     }

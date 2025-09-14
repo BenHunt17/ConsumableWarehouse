@@ -1,5 +1,6 @@
 ﻿using ConsumableWarehouse.Domain.Dtos.Request.AffiliateProduct;
 using ConsumableWarehouse.Domain.Dtos.Response.AffiliateProduct;
+using ConsumableWarehouse.Domain.Entities;
 
 namespace ConsumableWarehouse.Domain.Interfaces.Services
 {
@@ -7,6 +8,6 @@ namespace ConsumableWarehouse.Domain.Interfaces.Services
     {
         Task ImportAffiliateProducts(int partnerId, IEnumerable<AffiliateProductImportInput> input);
 
-        IEnumerable<AffiliateProductSummaryResponse> Search(AffiliateProductSearchInput input);
+        IEnumerable<AffiliateProduct> Search(AffiliateProductSearchInput input);
     }
 }

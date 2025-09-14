@@ -1,0 +1,69 @@
+﻿@using Blazored.Modal.Services
+@using ConsumableWarehouse.Domain.Dtos.Form
+@using ConsumableWarehouse.Domain.Entities
+@using ConsumableWarehouse.Domain.Interfaces.Services
+@using ConsumableWarehouse.WebApp.Data.ProductCategories
+
+@page "/product-categories"
+
+@inject IProductCategoryService ProductCategoryService
+
+<PageTitle>Product categories</PageTitle>
+
+<div class="hstack justify-content-between">
+    <h3>Product categories</h3>
+    <button class="btn btn-primary" @onclick="OpenModal">Add new category</button>
+</div>
+
+
+@if (categoryForest == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var category in categoryForest.ProductCategories)
+    {
+        <ProductCategoryRow productCategory="category" OnCategoryAdded="OnCategoryAdded" OnCategoryDeleted="OnCategoryDeleted" />
+    }
+}
+
+@code {
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    private ProductCategoryForest categoryForest;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categoryForest = new ProductCategoryForest(ProductCategoryService.FindProductCategories()
+            .Where(x => x.ParentCategoryId == null)
+            .ToList());
+    }
+
+    private async Task OpenModal()
+    {
+        var modal = Modal.Show<AddNewCategoryModal>("Add new category", new ModalOptions
+        {
+            Position = ModalPosition.Middle,
+        });
+
+        var result = await modal.Result;
+
+        if (!result.Cancelled && result.Data is ProductCategory)
+        {
+            OnCategoryAdded((ProductCategory)result.Data);
+        }
+    }
+
+    private void OnCategoryAdded(ProductCategory productCategory)
+    {
+        var productCategoryTree = new ProductCategoryTree(productCategory);
+
+        categoryForest.AddTree(productCategoryTree, productCategory.ParentCategoryId);
+    }
+
+    private void OnCategoryDeleted(int id)
+    {
+        categoryForest.RemoveTree(id);
+    }
+}

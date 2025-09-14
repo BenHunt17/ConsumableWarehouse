@@ -1,0 +1,94 @@
+﻿@using Blazored.Modal.Services 
+@using ConsumableWarehouse.Domain.Entities
+@using ConsumableWarehouse.WebApp.Data.ProductCategories
+
+<div>
+    <div @onclick="ToggleRow" class="cursor: pointer; d-flex gap-4 cursor-o p-2 border-top border-bottom" style="cursor: pointer; ">
+        @if (productCategory?.SubCategories.Count() == 0)
+        {
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        }
+        else
+        {
+            @(IsExpanded ? "[-]" : "[+]")
+        }
+        <div class="w-100 d-flex justify-content-between">
+            @productCategory.Name
+            <div class="hstack gap-2">
+                <button class="btn btn-primary" @onclick="OpenAddCategoryModal" @onclick:stopPropagation>Add sub-category</button>
+                <button class="btn btn-sm" @onclick="OpenDeleteModal" @onclick:stopPropagation>
+                    <i class="bi bi-trash" />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="vstack gap-4">
+    @if (IsExpanded && productCategory.SubCategories?.Any() == true)
+        {
+            <div class="ms-4">
+                @foreach (var category in productCategory.SubCategories)
+                {
+                    <ProductCategoryRow productCategory="category" OnCategoryAdded="OnCategoryAdded" OnCategoryDeleted="OnCategoryDeleted" />
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    [Parameter] public ProductCategoryTree productCategory { get; set; }
+
+    [Parameter] public EventCallback<ProductCategory> OnCategoryAdded { get; set; }
+
+    [Parameter] public EventCallback<int> OnCategoryDeleted { get; set; }
+
+    private bool IsExpanded { get; set; }
+
+    private void ToggleRow()
+    {
+        IsExpanded = !IsExpanded;
+    }
+
+    private async Task OpenAddCategoryModal()
+    {
+        var modal = Modal.Show<AddNewCategoryModal>("Add new category",
+            new ModalParameters
+            {
+                { "ParentCategoryId", productCategory.Id }
+            },
+            new ModalOptions
+            {
+                Position = ModalPosition.Middle,
+            });
+
+        var result = await modal.Result;
+
+        if (!result.Cancelled && result.Data is ProductCategory)
+        {
+            await OnCategoryAdded.InvokeAsync((ProductCategory)result.Data);
+        }
+    }
+
+    private async Task OpenDeleteModal()
+    {
+        var modal = Modal.Show<DeleteCategoryModal>("Are you sure you would like to delete this product category?",
+            new ModalParameters
+            {
+                { "ProductCategory", productCategory }
+            },
+            new ModalOptions
+            {
+                Position = ModalPosition.Middle,
+            });
+
+        var result = await modal.Result;
+
+        if (!result.Cancelled && result.Data is bool success && success)
+        {
+            await OnCategoryDeleted.InvokeAsync(productCategory.Id);
+        }
+    }
+}

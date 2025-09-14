@@ -1,0 +1,32 @@
+﻿@using ConsumableWarehouse.Domain.Entities
+@using ConsumableWarehouse.Domain.Interfaces.Services
+@using ConsumableWarehouse.WebApp.Data.ProductCategories
+
+@inject IProductCategoryService ProductCategoryService
+
+<p>Any sub categories will also be deleted. This category will also be removed forom any products</p>
+
+<button class="btn btn-secondary" @onclick="Decline">
+    No
+</button>
+<button class="btn btn-primary" @onclick="DeleteCategory">
+    Yes
+</button>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance Modal { get; set; } = default!;
+
+    [Parameter] public ProductCategoryTree productCategory { get; set; }
+
+    private async Task DeleteCategory()
+    {
+        ProductCategoryService.DeleteCategory(productCategory.Id);
+
+        await Modal.CloseAsync(ModalResult.Ok(true));
+    }
+
+    private async Task Decline()
+    {
+        await Modal.CloseAsync(ModalResult.Ok(false));
+    }
+}
