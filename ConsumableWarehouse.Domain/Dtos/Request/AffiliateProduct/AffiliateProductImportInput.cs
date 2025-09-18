@@ -6,6 +6,6 @@
 
         public string AffiliateLink { get; set; }
 
-        //TODO - add product category once it is fully supported
+        public string ProductCategory { get; set; }
     }
 }

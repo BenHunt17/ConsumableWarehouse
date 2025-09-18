@@ -12,6 +12,9 @@ namespace ConsumableWarehouse.Application.Services
     {
         private readonly IDataContext _dataContext;
 
+        private const int PAGINATION_DEFAULT = 10;
+        private const int PAGINATION_LIMIT = 99;
+
         public AffiliateProductService(IDataContext dataContext)
         {
             _dataContext = dataContext;
@@ -31,8 +34,13 @@ namespace ConsumableWarehouse.Application.Services
                 throw new KeyNotFoundException("Partner does not exist");
             }
 
+            var productCategoryNames = input.Select(x => x.ProductCategory);
+            var productCategories = _dataContext.ProductCategories
+                .Where(x => productCategoryNames.Contains(x.Name))
+                .ToDictionary(x => x.Name, x => x);
+
             var affiliateProducts = input
-                .Select(x => x.ToDomainObject(partnerId))
+                .Select(x => x.ToDomainObject(partnerId, productCategories.GetValueOrDefault(x.ProductCategory)?.Id))
                 .ToList();
 
             await _dataContext.AffiliateProducts.AddRangeAsync(affiliateProducts);
@@ -42,8 +50,8 @@ namespace ConsumableWarehouse.Application.Services
 
         public IEnumerable<AffiliateProduct> Search(AffiliateProductSearchInput input)
         {
-            var limit = input.Limit ?? 10;
-            if (limit > 99)
+            var limit = input.Limit ?? PAGINATION_DEFAULT;
+            if (limit > PAGINATION_LIMIT)
             {
                 throw new ArgumentOutOfRangeException(nameof(AffiliateProductSearchInput.Limit), "Limit can not be higher than 99");
             }
@@ -66,6 +74,12 @@ namespace ConsumableWarehouse.Application.Services
                 }
 
                 query = query.Where(x => x.Id > currentProduct.Id);
+            }
+
+            if (input.ProductCategories?.Any() == true)
+            {
+                query = query.Where(x =>
+                    x.ProductCategory != null && input.ProductCategories.Contains(x.ProductCategory.Name));
             }
 
             var products = query

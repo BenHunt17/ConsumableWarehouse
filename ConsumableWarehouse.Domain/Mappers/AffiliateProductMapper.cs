@@ -6,7 +6,7 @@ namespace ConsumableWarehouse.Domain.Mappers
 {
     public static class AffiliateProductMapper
     {
-        public static AffiliateProduct ToDomainObject(this AffiliateProductImportInput input, int partnerId)
+        public static AffiliateProduct ToDomainObject(this AffiliateProductImportInput input, int partnerId, int? productCategoryId)
         {
             return new AffiliateProduct
             {
@@ -14,6 +14,7 @@ namespace ConsumableWarehouse.Domain.Mappers
                 Name = input.Name,
                 AffiliateLink = input.AffiliateLink,
                 PartnerId = partnerId,
+                ProductCategoryId = productCategoryId
             };
         }
 

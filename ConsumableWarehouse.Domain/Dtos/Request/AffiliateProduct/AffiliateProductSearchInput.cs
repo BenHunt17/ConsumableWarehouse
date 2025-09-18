@@ -4,6 +4,8 @@
     {
         public string? SearchTerm { get; set; }
 
+        public IEnumerable<string> ProductCategories { get; set; }
+
         public Guid? CurrentId { get; set; }
 
         public int? Limit { get; set; }
